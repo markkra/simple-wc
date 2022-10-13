@@ -27,8 +27,19 @@ simpleHtml.innerHTML = `
 class Simple extends HTMLElement {
   constructor() {
     super();
-    this._root = this.attachShadow({ mode: "closed" });
-    this._root.appendChild(simpleHtml.content.cloneNode(true));
+    this.attachShadow({ mode: "open" });
+    this.shadowRoot.appendChild(simpleHtml.content.cloneNode(true));
+  }
+
+  connectedCallback() {
+    console.log("Simple Web Component added to page.");
+    this.shadowRoot.addEventListener("click", () => {
+      this.dispatchEvent(
+        new CustomEvent("onSimpleClick", {
+          detail: { message: "Hello World!" },
+        })
+      );
+    });
   }
 }
 

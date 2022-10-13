@@ -7,11 +7,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Simple WC</title>
     <script src="simple-wc.js"></script>
+    <script src="cool-div.js"></script>
     <script>
       window.addEventListener('load', () => {
         const simpleWc = document.getElementById('myWC');
-        simpleWc.addEventListener('mousemove', (e) => {
-          console.log(`Event handler for ${e.target.tagName} with id ${e.target.id}. The event was ${e.type}. Mouse position: ${e.clientX}, ${e.clientY}`);
+        simpleWc.addEventListener('onSimpleClick', (e) => {
+          console.log(`Event type: ${e.type}. (${JSON.stringify(e.detail, null, 2)})`);
+        });
+
+        const coolDiv = document.getElementById('myCoolDiv');
+        coolDiv.addEventListener('onSimpleMessage', (e) => {
+          const { message } = e.detail;
+          console.log(`Message from cool-div: ${message}`);
         });
       });
     </script>
@@ -19,6 +26,7 @@
 
   <body>
     <simple-wc id="myWC"></simple-wc>
+    <cool-div id="myCoolDiv"></cool-div>
   </body>
 
 </html>
